@@ -1,0 +1,73 @@
+{% extends 'templates/app.twig' %}
+
+	{% block content %}
+
+        <div class="col-md-12 col-lg-12 " >
+        
+     		<!-- Display Errors and Session Messages iF Any--> 
+			 {% for error in errors %}
+				{% for error_message in error %}
+		       		 <div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   {{ error_message|e }}
+					</div>
+		    	{% endfor %}
+		    {% endfor %}
+
+
+            <!-- Add Icon -->
+          <div class="col-md-5 col-lg-6 pull-left " >
+            <img src="{{ base_url()}}/img/icons/png/Infinity-Loop.png" alt="Welcome to RawPHP">
+            <h4>M&B Dashboard</h4>
+          </div>
+
+		<div class="col-md-6 col-lg-6 pull-right">
+		
+		<h4><span class="fui-user"></span> Editar Perfil</h4>
+
+          <div class="login-form" >
+          <form action="{{ path_for('auth.signup') }}" method="post" autocomplete="off"> 
+            <div class="form-group {{ errors.first_name ? 'has-error' : '' }}">
+              <input type="text" class="form-control login-field" value="{{ old.first_name }}"  name="first_name" placeholder="Nombre" id="login-first-name">
+              <label class="login-field-icon fui-user" for="login-first-name"></label>
+              {% if errors.first_name %}
+              	<span class="help-block">{{ errors.first_name | first }}</span>
+              {% endif %}
+            </div>
+            
+            <div class="form-group {{ errors.last_name ? 'has-error' : '' }}">
+              <input type="text" class="form-control login-field" value="{{ old.last_name }}"  name="last_name" placeholder="Apellido" id="login-last-name">
+              <label class="login-field-icon fui-user" for="login-last-name"></label>
+              
+               {% if errors.last_name %}
+              	<span class="help-block">{{ errors.last_name | first }}</span>
+              {% endif %}	
+            </div>
+            <div class="form-group {{ errors.email ? 'has-error' : '' }}">
+              <input type="email" class="form-control login-field" value="{{ old.email }}" name="email" placeholder="Email" id="login-email">
+              <label class="login-field-icon fui-user" for="login-email"></label>
+              
+              {% if errors.email %}
+              	<span class="help-block">{{ errors.email | first }}</span>
+              {% endif %}	
+            </div>
+            <div class="form-group {{ errors.phone ? 'has-error' : '' }}">
+              <input type="phone" class="form-control login-field" value="{{ old.phone }}" name="phone" placeholder="Telefono" id="login-email">
+              <label class="login-field-icon fui-user" for="phone"></label>
+              
+              {% if errors.email %}
+              	<span class="help-block">{{ errors.phone | first }}</span>
+              {% endif %}	
+            </div>
+
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Enviar</button>
+            
+             {{ csrf.field | raw }}
+            <a class="login-link" href="{{ path_for('auth.signin')}}">Login</a> <br>
+            <a class="login-link" href="{{ path_for('auth.password.forgot')}}">Recuperar contraseña</a>
+            </form>
+          </div>
+          </div>
+        </div>
+	{% endblock%}

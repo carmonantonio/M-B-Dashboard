@@ -1,0 +1,58 @@
+{% extends 'templates/app.twig' %}
+
+	{% block content %}
+
+        <div class="col-md-12 col-lg-12 " >
+        		<!-- Display Errors --> 
+			 {% for error in errors %}
+				{% for error_message in error %}
+		       		 <div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					   {{ error_message|e }}
+					</div>
+		    	{% endfor %}
+		    {% endfor %}
+
+
+		<div class="col-md-6 col-lg-6 col-md-offset-3">
+		<h4><span class="fui-user"></span> Change Password</h4>
+
+          <div class="login-form" >
+          <form action="{{ path_for('auth.password.change') }}" method="post" autocomplete="off"> 
+            
+            
+            <div class="form-group {{ errors.old_password ? 'has-error' : '' }}">
+              <input type="password" class="form-control login-field"  name="old_password"  
+              placeholder=" Enter your old password" >
+              
+              {% if errors.old_password %}
+              	<span class="help-block">{{ errors.old_password | first }}</span>
+              {% endif %}	
+            </div>
+            <hr/>
+            <div class="form-group {{ errors.new_password1 ? 'has-error' : '' }}">
+              <input type="password" class="form-control login-field" value="" name="new_password1" placeholder=" Enter your new password" id="login-password">
+         
+              
+              {% if errors.new_password1 %}
+              	<span class="help-block">{{ errors.new_password1 | first }}</span>
+              {% endif %}	
+            </div>
+            <div class="form-group {{ errors.new_password2 ? 'has-error' : '' }}">
+              <input type="password" class="form-control login-field" value="" name="new_password2" placeholder=" Re-Enter your new password" id="login-password">
+            
+              
+              {% if errors.new_password2 %}
+              	<span class="help-block">{{ errors.new_password2 | first }}</span>
+              {% endif %}	
+            </div>
+
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Change Password</button>
+            
+             {{ csrf.field | raw }}
+            </form>
+          </div>
+          </div>
+        </div>
+	{% endblock%}
